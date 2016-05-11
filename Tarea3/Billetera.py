@@ -48,6 +48,9 @@ class BilleteraElectronica():
         self.recargas.append(recarga)
 
     def consumir(self, monto, fecha, id, PIN):
+        assert monto > 0
+        assert fecha <= datetime.now()
+
         if(not self.PIN == PIN):
             raise Exception("PIN incorrecto")
         if(monto > self.saldo()):

@@ -28,7 +28,7 @@ class Test_BilleteraElectronica(unittest.TestCase):
         LatinBilletetera = BilleteraElectronica(0000,"áéíóúüÁÉÍÓÚÜ","ñÑ",1111,"abc123")
         self.assertEqual(LatinBilletetera.Nombres,"áéíóúüÁÉÍÓÚÜ")
         self.assertEqual(LatinBilletetera.Apellidos, "ñÑ")
-        
+
     def testRecarga(self):
         recarga = Recarga(10, datetime(2016,5,11,15,0), 1)
         self.assertEqual(recarga.monto, 10)
@@ -38,7 +38,7 @@ class Test_BilleteraElectronica(unittest.TestCase):
     def tesRecargaNegativa(self):
         with self.assertRaises(AssertionError):
             self.BilleteraPrueba.recargar(-10, datetime(2016,5,11,15,0), 1)
-            
+
     def testRecargaFutura(self):
         with self.assertRaises(AssertionError):
             self.BilleteraPrueba.recargar(10, datetime(2017,5,11,15,0), 1)
@@ -81,6 +81,13 @@ class Test_BilleteraElectronica(unittest.TestCase):
         with self.assertRaises(Exception):
             self.BilleteraPrueba.consumir(10, datetime(2016,5,11,15,0), 1, "abc123")
 
+    def testConsumoNegativa(self):
+        with self.assertRaises(AssertionError):
+            self.BilleteraPrueba.consumir(-10, datetime(2016,5,11,15,0), 1, "abc123")
+
+    def testConsumoFutura(self):
+        with self.assertRaises(AssertionError):
+            self.BilleteraPrueba.consumir(10, datetime(2017,5,11,15,0), 1, "abc123")
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
