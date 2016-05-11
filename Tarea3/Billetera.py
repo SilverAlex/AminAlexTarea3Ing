@@ -11,13 +11,20 @@ class Recarga():
         self.monto = monto
         self.fecha = fecha
         self.ID = Id
+    
+    def __eq__(self, other): 
+        return self.__dict__ == other.__dict__
 
 class Consumo():
     def __init__(self, monto, fecha, Id):
         self.monto = monto
         self.fecha = fecha
         self.ID = Id
-
+    
+    def __eq__(self, other): 
+        return self.__dict__ == other.__dict__
+    
+    
 class BilleteraElectronica():
 
     def __init__(self, Id=None, nombres=None, apellidos=None, ci=None, PIN=None):
@@ -28,3 +35,12 @@ class BilleteraElectronica():
         self.PIN = PIN
         self.recargas = []
         self.debitos = []
+        self.Saldo = 0
+        
+    def saldo(self):
+        return self.Saldo
+    
+    def recargar(self, monto, fecha, id):
+        self.Saldo += monto
+        recarga = Recarga(monto, fecha, id)
+        self.recargas.append(recarga)
