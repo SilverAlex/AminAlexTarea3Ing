@@ -27,7 +27,7 @@ class Consumo():
 
 class BilleteraElectronica():
 
-    def __init__(self, Id=None, nombres=None, apellidos=None, ci=None, PIN=None):
+    def __init__(self, Id, nombres, apellidos, ci, PIN):
         self.ID = Id
         self.Nombres = nombres
         self.Apellidos = apellidos
@@ -41,6 +41,8 @@ class BilleteraElectronica():
         return self.Saldo
 
     def recargar(self, monto, fecha, id):
+        assert monto > 0
+        assert fecha <= datetime.now()
         self.Saldo += monto
         recarga = Recarga(monto, fecha, id)
         self.recargas.append(recarga)

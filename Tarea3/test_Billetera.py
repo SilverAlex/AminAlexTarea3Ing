@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on 11 de may. de 2016
 
@@ -23,11 +24,24 @@ class Test_BilleteraElectronica(unittest.TestCase):
         self.assertEqual(self.BilleteraPrueba.recargas , [], "Las recargas deben ser una lista vacia")
         self.assertEqual(self.BilleteraPrueba.consumos , [], "Los consumos deben ser una lista vacia")
 
+    def testBilleteraSpanishChars(self):
+        LatinBilletetera = BilleteraElectronica(0000,"áéíóúüÁÉÍÓÚÜ","ñÑ",1111,"abc123")
+        self.assertEqual(LatinBilletetera.Nombres,"áéíóúüÁÉÍÓÚÜ")
+        self.assertEqual(LatinBilletetera.Apellidos, "ñÑ")
+        
     def testRecarga(self):
         recarga = Recarga(10, datetime(2016,5,11,15,0), 1)
         self.assertEqual(recarga.monto, 10)
         self.assertEqual(recarga.fecha, datetime(2016,5,11,15,0))
         self.assertEqual(recarga.ID, 1)
+
+    def tesRecargaNegativa(self):
+        with self.assertRaises(AssertionError):
+            self.BilleteraPrueba.recargar(-10, datetime(2016,5,11,15,0), 1)
+            
+    def testRecargaFutura(self):
+        with self.assertRaises(AssertionError):
+            self.BilleteraPrueba.recargar(10, datetime(2017,5,11,15,0), 1)
 
     def testConsumo(self):
         consumo = Consumo(10, datetime(2016,5,11,15,0), 1)
