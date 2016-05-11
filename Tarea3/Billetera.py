@@ -28,3 +28,7 @@ class BilleteraElectronica():
         self.PIN = PIN
         self.recargas = []
         self.debitos = []
+        self.Saldo = 0
+        
+    def saldo(self):
+        return self.Saldo
