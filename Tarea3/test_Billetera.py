@@ -32,7 +32,11 @@ class Test_BilleteraElectronica(unittest.TestCase):
         self.assertEqual(consumo.fecha, datetime(2016,5,11,15,0))
         self.assertEqual(consumo.ID, 1)
 
-
+    def testSaldo(self):
+        BilleteraPrueba = BilleteraElectronica(0000,"Pedro","Perez",1111,"abc123")
+        self.assertEqual(BilleteraPrueba.saldo(), 0, "El saldo debe ser 0")
+        
+    
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
